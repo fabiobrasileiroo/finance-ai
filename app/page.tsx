@@ -3,15 +3,15 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 const Home = async () => {
-  const { userId } = await auth()
+  const { userId } = await auth();
   if (!userId) {
-    redirect('/login')
+    redirect("/login");
   }
   return (
-    <div className="h-full ">
+    <div className="h-full">
       <UserButton showName />
     </div>
-  )
-}
+  );
+};
 
 export default Home;
