@@ -2,6 +2,22 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### LINKS:
+
+<!-- Blog da FSW: https://fullstackclub.com.br/fscblog/ -->
+
+Notion da FSW: https://narrow-beach-a00.notion.site/...
+
+<!-- Comunidade no Discord:   / discord   -->
+
+<!-- Ingresso Gold: https://checkout4.xgrow.com/pt/71edc4... -->
+
+Figma do projeto: https://www.figma.com/design/ndIZ9nev... 
+
+<!-- Repositório do Projeto: https://github.com/felipemotarocha/fu... -->
+
+<!-- Link para se inscrever na FSW: https://swiy.co/y-fsw6 -->
+
 First, run the development server:
 
 ```bash
