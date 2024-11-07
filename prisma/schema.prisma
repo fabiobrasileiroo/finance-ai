@@ -26,6 +26,8 @@ model Transaction {
   userId        String
 }
 
+
+
 enum TransactionType {
   DEPOSIT
   EXPENSE
