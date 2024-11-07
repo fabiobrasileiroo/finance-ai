@@ -1,10 +1,31 @@
 "use client";
 
-import { Badge } from "@/app/_components/ui/badge";
-import { Transaction, TransactionType } from "@prisma/client";
+import { Transaction } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
-import { CircleIcon } from "lucide-react";
+import { TransactionTypeBadge } from "../_components/type-badge";
+import { Button } from "@/app/_components/ui/button";
+import { PencilIcon, TrashIcon } from "lucide-react";
 
+export const TRANSACTION_CATEGORY_LABELS = {
+  EDUCATION: "Educação",
+  ENTERTAINMENT: "Entretenimento",
+  FOOD: "Alimentação",
+  HEALTH: "Saúde",
+  HOUSING: "Moradia",
+  OTHER: "OUTROS",
+  SALARY: "Salário",
+  TRANSPORTATION: "Transporte",
+  UTILITY: "Utilidades",
+};
+export const TRANSACTION_PAYMENT_METHOD_LABELS = {
+  BANK_TRANSFER: "Transferência Bancária",
+  BANK_SLIP: "Boleto Bancária",
+  CASH: "Dinheiro",
+  CREDIT_CARD: "Cartão de Crédito",
+  DEBIT_CARD: "Cartão de Débito",
+  OTHER: "Outros",
+  PIX: "Pix",
+};
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
@@ -16,51 +37,55 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "type",
     header: "Tipo",
-    cell: ({ row: { original: transaction } }) => {
-      if (transaction.type === TransactionType.DEPOSIT) {
-        return (
-          <Badge className="bg-primary/10 font-bold text-primary hover:bg-primary/20">
-            <CircleIcon className="mr-2 fill-primary" size={10} />
-            Depósito
-          </Badge>
-        );
-      }
-      if (transaction.type === TransactionType.EXPENSE) {
-        return (
-          <Badge className="bg-danger bg-opacity-10 font-bold text-danger hover:bg-danger/20">
-            <CircleIcon className="mr-2 fill-danger" size={10} />
-            Despesa
-          </Badge>
-        );
-      }
-      if (transaction.type === TransactionType.INVESTMENT) {
-        return (
-          <Badge className="bg-white/5 bg-opacity-10 font-bold text-white hover:bg-white/10">
-            <CircleIcon className="mr-2 fill-white" size={10} />
-            Investimento
-          </Badge>
-        );
-      }
-    },
+    cell: ({ row: { original: transaction } }) => (
+      <TransactionTypeBadge transaction={transaction} />
+    ),
   },
   {
     accessorKey: "category",
     header: "Categoria",
+    cell: ({ row: { original: transaction } }) =>
+      TRANSACTION_CATEGORY_LABELS[transaction.category],
   },
   {
     accessorKey: "paymentMethod",
     header: "Método de Pagamento",
+    cell: ({ row: { original: transaction } }) =>
+      TRANSACTION_PAYMENT_METHOD_LABELS[transaction.paymentMethod],
   },
   {
     accessorKey: "date",
     header: "Data",
+    cell: ({ row: { original: transaction } }) =>
+      new Date(transaction.date).toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      }),
   },
   {
     accessorKey: "amount",
     header: "Valor",
+    cell: ({ row: { original: transaction } }) =>
+      new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(transaction.amount),
   },
   {
     accessorKey: "actions",
-    header: "",
+    header: "Ações",
+    cell: () => {
+      return (
+        <div>
+          <Button variant="ghost" size="icon" className="text-muted-foreground">
+            <PencilIcon />
+          </Button>
+          <Button variant="ghost" size="icon" className="text-muted-foreground">
+            <TrashIcon />
+          </Button>
+        </div>
+      );
+    },
   },
 ];
