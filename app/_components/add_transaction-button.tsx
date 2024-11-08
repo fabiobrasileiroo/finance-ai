@@ -1,4 +1,5 @@
 "use client";
+
 import { ArrowDownUpIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -9,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
+  DialogClose,
 } from "./ui/dialog";
 import { z } from "zod";
 import {
@@ -43,6 +45,7 @@ import {
 import { DatePicker } from "./ui/date-picker";
 
 // const TRANSACTION_TYPE_OPTION
+type FormSchema = z.infer<typeof formSchema>;
 
 const formSchema = z.object({
   name: z.string().trim().min(1, {
@@ -66,7 +69,7 @@ const formSchema = z.object({
 });
 
 export const AddTransactionButton = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       amount: "",
@@ -77,9 +80,17 @@ export const AddTransactionButton = () => {
       type: TransactionType.EXPENSE,
     },
   });
-  const onSubmit = () => {};
+  const onSubmit = (data: FormSchema) => {
+    console.log({ data });
+  };
   return (
-    <Dialog>
+    <Dialog
+      onOpenChange={(open) => {
+        if (!open) {
+          form.reset();
+        }
+      }}
+    >
       <DialogTrigger asChild>
         <Button className="rounded-full font-bold">
           Adicionar transações
@@ -210,7 +221,11 @@ export const AddTransactionButton = () => {
             />
 
             <DialogFooter>
-              <Button variant="outline">Cancelar</Button>
+              <DialogClose asChild>
+                <Button type="button" variant="outline">
+                  Cancelar
+                </Button>
+              </DialogClose>
               <Button type="submit">Adicionar</Button>
             </DialogFooter>
           </form>
