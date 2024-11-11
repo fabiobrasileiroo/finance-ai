@@ -11,6 +11,7 @@ export const TRANSACTION_CATEGORY_LABELS = {
   TRANSPORTATION: "Transporte",
   UTILITY: "Utilidades",
 };
+
 export const TRANSACTION_PAYMENT_METHOD_LABELS = {
   BANK_TRANSFER: "Transferência Bancária",
   BANK_SLIP: "Boleto Bancária",

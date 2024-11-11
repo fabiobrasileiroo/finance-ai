@@ -1,6 +1,14 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+aula: 1 letra: 3
+aula: 2 letra: g
+aula: 3 letra: f
+aula: 4 letra: a
+aula: 5 letra: c
+aula: 6 letra: f
+aula: 7 letra: 1
+aula: 8 letra: 
 
 ### LINKS:
 
