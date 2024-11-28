@@ -1,12 +1,19 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import HomeDashboard from "./(home)/page";
+import { NavBar } from "../_components/navbar";
+import SummaryCards from "./_components/summary-cards";
+
 const Home = async () => {
   const { userId } = await auth();
   if (!userId) {
     redirect("/login");
   }
-  return <HomeDashboard />;
+  return (
+    <>
+      <NavBar />
+      <SummaryCards />
+    </>
+  );
 };
 
 export default Home;
